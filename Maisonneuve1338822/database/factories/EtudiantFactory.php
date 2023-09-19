@@ -16,11 +16,11 @@ class EtudiantFactory extends Factory
     {
         return [
             'nomEtudiant' => $this->faker->name, 
-            'adresse' => $this->faker->address, 
+            'adresse' => $this->faker->streetAddress, 
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique->safeEmail,
             'naissance' => $this->faker->date, 
-            'ville_id' => Ville::factory()
+            'ville_id' => Ville::all()->random()->id
         ];
     }
 }

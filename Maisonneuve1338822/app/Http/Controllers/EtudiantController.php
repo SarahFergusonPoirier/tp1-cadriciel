@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
+use App\Models\Ville; 
 
 class EtudiantController extends Controller
 {
@@ -24,8 +25,8 @@ class EtudiantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    { 
+        return view('etudiant.create');
     }
 
     /**
@@ -36,7 +37,16 @@ class EtudiantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newEtudiant = Etudiant::create([
+            'nomEtudiant' => $request->nomEtudiant,
+            'naissance' => $request->naissance,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'adresse' => $request->adresse,
+            'ville_id' => $request->ville_id
+        ]);
+
+        return redirect(route('etudiant.index')); 
     }
 
     /**
@@ -47,7 +57,11 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
-        return view('etudiant.show', ['etudiant' => $etudiant]); 
+        $ville = Ville::all()->where('id', $etudiant->ville_id); 
+        foreach ($ville as $v) {
+            $nomVille = $v->nomVille; 
+        } 
+        return view('etudiant.show', ['etudiant' => $etudiant, 'ville' => $nomVille]); 
     }
 
     /**
@@ -58,7 +72,12 @@ class EtudiantController extends Controller
      */
     public function edit(Etudiant $etudiant)
     {
-        //
+        $villes = Ville::all(); 
+        $ville = $villes->where('id', $etudiant->ville_id);  
+        foreach ($ville as $v) {
+            $nomVille = $v->nomVille; 
+        } 
+        return view('etudiant.edit', ['etudiant' => $etudiant, 'villes' => $villes, 'ville' => $nomVille]);
     }
 
     /**
@@ -70,7 +89,16 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, Etudiant $etudiant)
     {
-        //
+        $etudiant->update([
+            'nomEtudiant' => $request->nomEtudiant,
+            'naissance' => $request->naissance,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'adresse' => $request->adresse,
+            'ville_id' => $request->ville_id
+        ]);
+
+        return redirect(route('etudiant.show', $etudiant->id));
     }
 
     /**

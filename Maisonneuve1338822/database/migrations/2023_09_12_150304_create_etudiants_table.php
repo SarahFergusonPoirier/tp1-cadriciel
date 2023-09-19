@@ -21,7 +21,8 @@ class CreateEtudiantsTable extends Migration
             $table->string('phone', 20);
             $table->string('email', 320);
             $table->date('naissance');
-            $table->text('ville_id'); 
+            $table->integer('ville_id')->unsigned();
+            $table->foreign('ville_id')->references('id')->on('villes');
         });
     }
 
