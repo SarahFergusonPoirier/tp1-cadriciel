@@ -31,9 +31,9 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6>Ville</h6> 
-                    <select name="ville_id" id="ville_id">
+                    <select name="ville_id" id="ville_id" class="form-select w-50">
                         @forelse($villes as $ville)
-                            <option value="{{ $ville->id }}">{{ $ville->nomVille }}</option>
+                            <option value="{{ $ville->id }}" @if($ville->id == $etudiant->ville_id) selected @endif>{{ $ville->nomVille }}</option>
                         @empty
                             <option value="null">Liste indisponible</option>>
                         @endforelse

@@ -26,7 +26,8 @@ class EtudiantController extends Controller
      */
     public function create()
     { 
-        return view('etudiant.create');
+        $villes = Ville::all();  
+        return view('etudiant.create', ['villes' => $villes]);
     }
 
     /**
@@ -109,6 +110,8 @@ class EtudiantController extends Controller
      */
     public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete(); 
+
+        return redirect(route('etudiant.index'));
     }
 }

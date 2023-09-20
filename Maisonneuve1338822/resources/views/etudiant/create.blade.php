@@ -29,8 +29,14 @@
                     <input type="text" id="adresse" name="adresse" class="form-control w-50" />
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6>Ville</h6>
-                    <input type="text" id="ville_id" name="ville_id" class="form-control w-50" />
+                    <h6>Ville</h6> 
+                    <select name="ville_id" id="ville_id" class="form-select w-50">
+                        @forelse($villes as $ville)
+                            <option value="{{ $ville->id }}">{{ $ville->nomVille }}</option>
+                        @empty
+                            <option value="null">Liste indisponible</option>>
+                        @endforelse
+                    </select>
                 </li>
             </ul>
             <div class="d-flex justify-content-center">
